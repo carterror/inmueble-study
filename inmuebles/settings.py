@@ -74,10 +74,10 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'inmuebles',
-        'USER': 'postgres',
+        'NAME': 'inmuebles_fvjf',
+        'USER': 'inmuebles_fvjf_user',
         'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
+        'HOST': 'dpg-ciflt959aq012eqrtem0-a',
         'PORT': '5432',
     }
 }
