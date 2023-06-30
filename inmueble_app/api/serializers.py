@@ -5,6 +5,7 @@ from inmueble_app.models import Inmueble, Company, Comment
 
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
+
     class Meta:
         model = Comment
         # fields = '__all__'
@@ -14,6 +15,7 @@ class CommentSerializer(serializers.ModelSerializer):
 class InmuebleSerializer(serializers.ModelSerializer):
     len_address = serializers.SerializerMethodField()
     comments = CommentSerializer(many=True, read_only=True)
+    company_name = serializers.CharField(source='company.name', read_only=True)
 
     def get_len_address(self, object):
         return len(object.address)

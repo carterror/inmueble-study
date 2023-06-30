@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import Max
 from django.contrib.auth.models import User
+from user_app.models import Account
 
 
 class Company(models.Model):
@@ -32,7 +33,7 @@ class Comment(models.Model):
     qualification = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     texto = models.CharField(max_length=200, null=True)
     active = models.BooleanField(default=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
     inmueble = models.ForeignKey(Inmueble, on_delete=models.CASCADE, related_name='comments')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

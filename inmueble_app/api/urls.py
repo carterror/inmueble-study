@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.urls import path, include
 # from inmueble_app.api.views import inmueble_list, inmueble_show
-from inmueble_app.api.views import InmuebleList, InmuebleDetails
+from inmueble_app.api.views import InmuebleList, InmuebleDetails, UserComment, InmuebleListFilter
 from inmueble_app.api.views import CommentList, CommentDetails, CommentCreate
 from inmueble_app.api.views import CompanyView
 from rest_framework.routers import DefaultRouter
@@ -27,6 +27,7 @@ router.register('company', CompanyView, basename='company')
 urlpatterns = [
 
     path('inmueble/', InmuebleList.as_view(), name='inmueble-list'),
+    path('inmueble/list/', InmuebleListFilter.as_view(), name='inmueble'),
     path('inmueble/<int:pk>/', InmuebleDetails.as_view(), name='inmueble-detail'),
 
     path('', include(router.urls)),
@@ -36,6 +37,9 @@ urlpatterns = [
     # path('comment/', CommentGAV.as_view(), name='comment-list'),
     path('inmueble/<int:pk>/comment-create/', CommentCreate.as_view(), name='comment-create'),
     path('inmueble/<int:pk>/comment/', CommentList.as_view(), name='comment-list'),
-    path('inmueble/comment/<int:pk>/', CommentDetails.as_view(), name='comment-detail')
+    path('inmueble/comment/<int:pk>/', CommentDetails.as_view(), name='comment-detail'),
+
+    path('inmueble/comments/', UserComment.as_view(), name='user-comment-detail'),
+
 
 ]
