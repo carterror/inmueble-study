@@ -16,7 +16,7 @@ class InmuebleSerializer(serializers.ModelSerializer):
     len_address = serializers.SerializerMethodField()
     comments = CommentSerializer(many=True, read_only=True)
     company_name = serializers.CharField(source='company.name', read_only=True)
-
+    # company_data = CompanySerializer(read_only=True)
     def get_len_address(self, object):
         return len(object.address)
 

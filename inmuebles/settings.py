@@ -16,6 +16,7 @@ SECRET_KEY = 'django-insecure-4++!905eb*bvu0-8qli=nts6au**_6$0!6(uc-(4i*$cf8vj2h
 DEBUG = True
 
 ALLOWED_HOSTS = []
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -29,8 +30,9 @@ INSTALLED_APPS = [
     'inmueble_app',
     'user_app',
     'rest_framework',
-    'rest_framework.authtoken',
-    'django_filters'
+    'rest_framework_simplejwt',
+    'django_filters',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -41,6 +43,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'inmuebles.urls'
@@ -74,10 +77,10 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'inmuebles_fvjf',
-        'USER': 'inmuebles_fvjf_user',
+        'NAME': 'inmuebles',
+        'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'dpg-ciflt959aq012eqrtem0-a',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
@@ -133,7 +136,7 @@ REST_FRAMEWORK = {
     # ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         # 'rest_framework.authentication.TokenAuthentication'
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
     ],
     # 'DEFAULT_THROTTLE_CLASSES': [
     #     'rest_framework.throttling.ScopedRateThrottle',

@@ -47,18 +47,18 @@ class CommentList(generics.ListCreateAPIView):
 
 
 class CommentDetails(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsCommentUserOrReadOnly]
+    permission_classes = [IsCommentUserOrReadOnly, IsAuthenticated]
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     # throttle_classes = [UserRateThrottle, AnonRateThrottle]
-    throttle_classes = [ScopedRateThrottle]
+    # throttle_classes = [ScopedRateThrottle]
     throttle_scope = 'comment-detail'
 
 
 class CommentCreate(generics.CreateAPIView):
     serializer_class = CommentSerializer
     # permission_classes = [IsCommentUserOrReadOnly]
-    throttle_classes = [CommentCreateThrottle]
+    # throttle_classes = [CommentCreateThrottle]
 
     def get_queryset(self):
         return Comment.objects.all()

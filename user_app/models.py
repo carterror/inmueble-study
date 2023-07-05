@@ -9,6 +9,7 @@ from django.db import models
 # def create_auth_token(sender, instance=None, created=None, **kwargs):
 #     if created:
 #         Token.objects.create(user=instance)
+
 class MyAccount(BaseUserManager):
     def create_user(self, first_name, last_name, email, username, password=None, **extra_fields):
         if not email:
