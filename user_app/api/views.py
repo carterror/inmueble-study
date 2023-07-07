@@ -7,6 +7,7 @@ from rest_framework.response import Response
 # from user_app import models
 from rest_framework.authtoken.models import Token
 from rest_framework_simplejwt.tokens import RefreshToken
+<<<<<<< HEAD
 from django.contrib import auth
 
 from rest_framework.permissions import IsAuthenticated
@@ -22,6 +23,8 @@ def create_account(account):
     data['email'] = account.email
 
     return data
+=======
+>>>>>>> parent of 25b4be5 (primer deploy dajngo)
 
 
 @api_view(['GET', ])
@@ -46,13 +49,14 @@ def sessionView(request):
 
 
 # Create your views here.
-@api_view(['POST', ])
+@api_view(['POST',])
 def logoutView(request):
     if request.method == 'POST':
         request.user.auth_token.delete()
         return Response(status=status.HTTP_200_OK)
 
 
+<<<<<<< HEAD
 @api_view(['POST', ])
 def loginView(request):
     # cache.delete('mi_cache')
@@ -84,6 +88,9 @@ def loginView(request):
 
 
 @api_view(['POST', ])
+=======
+@api_view(['POST',])
+>>>>>>> parent of 25b4be5 (primer deploy dajngo)
 def registerView(request):
     if request.method == 'POST':
         serializer = RegisterSerializer(data=request.data)
@@ -91,10 +98,16 @@ def registerView(request):
 
         if serializer.is_valid():
             account = serializer.save()
-            data = create_account(account)
             data['response'] = 'Register is successfully'
-
+            data['username'] = account.username
+            data['email'] = account.email
+            # token = Token.objects.get(user=account).key
+            # data['token'] = token
+            refresh = RefreshToken.for_user(account)
+            data['token'] = {
+                'refresh': str(refresh),
+                'access': str(refresh.access_token)
+            }
             return Response(data)
         else:
             data = serializer.errors
-            return Response(data)

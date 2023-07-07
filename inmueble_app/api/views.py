@@ -9,36 +9,12 @@ from rest_framework.permissions import IsAuthenticated
 from inmueble_app.api.permissions import IsAdminOrReadOnly, IsCommentUserOrReadOnly
 from inmueble_app.api.serializers import InmuebleSerializer, CompanySerializer, CommentSerializer
 from inmueble_app.models import Inmueble, Company, Comment
-from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
-from inmueble_app.api.throttling import CommentListThrottle, CommentCreateThrottle
-from rest_framework.throttling import ScopedRateThrottle
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters
-from inmueble_app.api.pagination import InmueblePagination
-
-
-# Create your views here.
-
-class UserComment(generics.ListAPIView):
-    serializer_class = CommentSerializer
-
-    # def get_queryset(self):
-    #     username = self.kwargs['username']
-    #     comments = Comment.objects.filter(user__username=username)
-    #     return comments
-    def get_queryset(self):
-        username = self.request.query_params.get('username')
-        return username
 
 
 class CommentList(generics.ListCreateAPIView):
     # queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    throttle_classes = [CommentListThrottle]
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['user__username', 'active']
-
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         pk = self.kwargs['pk']
@@ -50,15 +26,22 @@ class CommentDetails(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsCommentUserOrReadOnly, IsAuthenticated]
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+<<<<<<< HEAD
     # throttle_classes = [UserRateThrottle, AnonRateThrottle]
     # throttle_classes = [ScopedRateThrottle]
     throttle_scope = 'comment-detail'
+=======
+>>>>>>> parent of 25b4be5 (primer deploy dajngo)
 
 
 class CommentCreate(generics.CreateAPIView):
     serializer_class = CommentSerializer
+<<<<<<< HEAD
     # permission_classes = [IsCommentUserOrReadOnly]
     # throttle_classes = [CommentCreateThrottle]
+=======
+    permission_classes = [IsCommentUserOrReadOnly]
+>>>>>>> parent of 25b4be5 (primer deploy dajngo)
 
     def get_queryset(self):
         return Comment.objects.all()
@@ -73,9 +56,9 @@ class CommentCreate(generics.CreateAPIView):
             raise ValidationError('Comment already exists for this user')
 
         if inmueble.num_califications == 0:
-            inmueble.avg_califications = serializer.validated_data['qualification']
+            inmueble.avg_califications = serializer.validate_data['calification']
         else:
-            inmueble.avg_califications = (serializer.validated_data['qualification'] + inmueble.avg_califications) / 2
+            inmueble.avg_califications = (serializer.validate_data['calification'] + inmueble.avg_califications) / 2
             inmueble.num_califications = inmueble.num_califications + 1
 
         inmueble.save()
@@ -92,14 +75,6 @@ class InmuebleDetails(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAdminOrReadOnly]
     queryset = Inmueble.objects.all()
     serializer_class = InmuebleSerializer
-
-
-class InmuebleListFilter(generics.ListAPIView):
-    pagination_class = InmueblePagination
-    queryset = Inmueble.objects.all()
-    serializer_class = InmuebleSerializer
-    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-    search_fields = ['company__name', 'active']
 
 
 class CompanyView(viewsets.ModelViewSet):

@@ -2,7 +2,10 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import Max
 from django.contrib.auth.models import User
+<<<<<<< HEAD
 # from user_app.models import Account
+=======
+>>>>>>> parent of 25b4be5 (primer deploy dajngo)
 
 
 class Company(models.Model):

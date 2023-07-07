@@ -5,7 +5,6 @@ from inmueble_app.models import Inmueble, Company, Comment
 
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
-
     class Meta:
         model = Comment
         # fields = '__all__'
@@ -15,8 +14,12 @@ class CommentSerializer(serializers.ModelSerializer):
 class InmuebleSerializer(serializers.ModelSerializer):
     len_address = serializers.SerializerMethodField()
     comments = CommentSerializer(many=True, read_only=True)
+<<<<<<< HEAD
     company_name = serializers.CharField(source='company.name', read_only=True)
     # company_data = CompanySerializer(read_only=True)
+=======
+
+>>>>>>> parent of 25b4be5 (primer deploy dajngo)
     def get_len_address(self, object):
         return len(object.address)
 
