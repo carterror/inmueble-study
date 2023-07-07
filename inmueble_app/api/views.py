@@ -5,10 +5,10 @@ from rest_framework import status, generics, mixins
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework.exceptions import ValidationError
-from rest_framework.permissions import IsAuthenticated
 from inmueble_app.api.permissions import IsAdminOrReadOnly, IsCommentUserOrReadOnly
 from inmueble_app.api.serializers import InmuebleSerializer, CompanySerializer, CommentSerializer
 from inmueble_app.models import Inmueble, Company, Comment
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from inmueble_app.api.throttling import CommentListThrottle, CommentCreateThrottle
 from rest_framework.throttling import ScopedRateThrottle
@@ -84,7 +84,7 @@ class CommentCreate(generics.CreateAPIView):
 
 
 class InmuebleList(generics.ListCreateAPIView):
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsAuthenticated]
     queryset = Inmueble.objects.all()
     serializer_class = InmuebleSerializer
 
