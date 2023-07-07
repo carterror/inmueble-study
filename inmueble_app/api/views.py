@@ -88,7 +88,6 @@ class InmuebleList(generics.ListCreateAPIView):
     queryset = Inmueble.objects.all()
     serializer_class = InmuebleSerializer
 
-
 class InmuebleDetails(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAdminOrReadOnly]
     queryset = Inmueble.objects.all()

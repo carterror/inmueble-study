@@ -11,7 +11,8 @@ from django.contrib import auth
 
 from rest_framework.permissions import IsAuthenticated
 
-from user_app.models import Account
+# from user_app.models import Account
+# from django.core.cache import cache
 
 
 def create_account(account):
@@ -19,9 +20,6 @@ def create_account(account):
 
     data['username'] = account.username
     data['email'] = account.email
-    data['first_name'] = account.first_name
-    data['last_name'] = account.last_name
-    data['phone'] = account.phone
 
     return data
 
@@ -33,7 +31,7 @@ def sessionView(request):
     if request.method == 'GET':
         user = request.user
         print(user)
-        account = Account.objects.get(email=user)
+        # account = User.objects.get(email=user)
 
         data = {}
         if account is not None:
@@ -57,12 +55,13 @@ def logoutView(request):
 
 @api_view(['POST', ])
 def loginView(request):
+    # cache.delete('mi_cache')
     data = {}
     if request.method == 'POST':
-        email = request.data.get('email')
+        username = request.data.get('username')
         password = request.data.get('password')
 
-    account = auth.authenticate(email=email, password=password)
+    account = auth.authenticate(username=username, password=password)
 
     if account is not None:
         data = create_account(account)

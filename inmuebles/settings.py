@@ -15,8 +15,8 @@ SECRET_KEY = 'django-insecure-4++!905eb*bvu0-8qli=nts6au**_6$0!6(uc-(4i*$cf8vj2h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-CORS_ORIGIN_ALLOW_ALL = True
+# ALLOWED_HOSTS = []
+# CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -30,9 +30,9 @@ INSTALLED_APPS = [
     'inmueble_app',
     'user_app',
     'rest_framework',
-    'rest_framework_simplejwt',
+    # 'rest_framework_simplejwt',
     'django_filters',
-    'corsheaders',
+    # 'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -43,7 +43,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'inmuebles.urls'
@@ -64,25 +64,25 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'inmuebles.wsgi.application'
-AUTH_USER_MODEL = 'user_app.Account'
+# WSGI_APPLICATION = 'inmuebles.wsgi.application'
+# AUTH_USER_MODEL = 'user_app.Account'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'inmuebles',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'inmuebles',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'postgres',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '5432',
+    # }
 }
 
 # Password validation
@@ -142,13 +142,13 @@ REST_FRAMEWORK = {
     #     'rest_framework.throttling.ScopedRateThrottle',
     #     'rest_framework.throttling.UserRateThrottle',
     # ],
-    'DEFAULT_THROTTLE_RATES': {
-        'anon': '50000/day',
-        'user': '10000/day',
-        'comment-create': '2000/day',
-        'comment-list': '8000/day',
-        'comment-detail': '3000/day',
-    },
+    # 'DEFAULT_THROTTLE_RATES': {
+    #     'anon': '50000/day',
+    #     'user': '10000/day',
+    #     'comment-create': '2000/day',
+    #     'comment-list': '8000/day',
+    #     'comment-detail': '3000/day',
+    # },
     # 'DEFAULT_PAGINATION_CLASSES': 'rest_framework.pagination.LimitOffsetPagination',
     # 'PAGE_SIZE': 1
     'DEFAULT_RENDERER_CLASSES': (

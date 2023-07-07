@@ -20,7 +20,7 @@ from rest_framework import urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api-auth', include(urls)),
+    path('api-auth', include(urls)),
     path('api/', include('inmueble_app.api.urls')),
     path('account/', include('user_app.api.urls'))
 ]
